@@ -1,0 +1,28 @@
+name:hina zeeshan
+rollnumber:
+
+
+DAY 3 - API INTEGRATION AND DATA MIGRATION
+
+API integration and migration are crucial processes in modern software development and data management. 
+
+What is API Integration?
+
+API (Application Programming Interface) integration is the process of connecting different software applications or systems to communicate and share data seamlessly. APIs act as intermediaries that enable one application to interact with another.
+
+Key Features of API Integration:
+
+Real-Time Data Sharing: Ensures data consistency and up-to-date information across platforms.
+Automation: Reduces manual tasks by automating workflows.
+Scalability: Facilitates the integration of new services and applications.
+Enhanced User Experience: Allows systems to work together, creating a seamless user journey.
+
+
+Steps in API Migration:
+
+Assessment: Identify the APIs to migrate and analyze their dependencies.
+Planning: Define migration goals, timelines, and fallback plans.
+Implementation: Write migration scripts and configure new APIs.
+Testing: Validate the migrated data and functionality.
+Deployment: Switch to the new API in a controlled manner.
+Monitoring: Track the performance of the new API to address issues promptly.
