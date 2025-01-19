@@ -1,5 +1,7 @@
-export interface Product {
-    slug: any;
+
+
+export type  Product= {
+    slug: string;
     title: string;
     description: string;
     imageUrl: string; // Direct URL for the product image

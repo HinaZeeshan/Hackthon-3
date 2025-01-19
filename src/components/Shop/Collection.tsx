@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Product } from "../../interface/product";
+import { Product } from "../../types/product";
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { sanityFetch } from "../../sanity/lib/fetch";

@@ -1,17 +1,17 @@
 import React from "react";
 import Image from "next/image";
-import { Product } from '../../interface/product';
+import { Product } from '../../types/product';
 import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { sanityFetch } from "../../sanity/lib/fetch";
-import { mainproduct } from "../../sanity/lib/queries";
+import { allproducts } from "../../sanity/lib/queries";
 const montseerat = Montserrat({
   subsets: ["latin"],
   weight: "700",
 });
 
 const Bestselling = async () => {
-  const products:Product[] = await sanityFetch({querry : mainproduct})
+  const products:Product[] = await sanityFetch({querry : allproducts})
   return (
   
 
@@ -47,7 +47,7 @@ const Bestselling = async () => {
           width={500}
           height={500}
           alt={product.title}
-          className="object-cover object-center hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full block"
+          className="object-fit object-center hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full block"
           src={product.imageUrl}
         />
       </Link>
