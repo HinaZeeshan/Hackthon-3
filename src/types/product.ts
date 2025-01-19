@@ -1,4 +1,5 @@
-// src/interfaces/product.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 export type Product = {
     title: string; // The title of the product
