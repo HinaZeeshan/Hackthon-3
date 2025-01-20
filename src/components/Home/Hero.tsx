@@ -32,7 +32,7 @@ const Hero = () => {
             </h4>
 
             <div className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto bg-myGreen text-white hover:text-blue-500 font-bold py-3 px-6 rounded-lg sm:py-2 sm:px-4 md:py-3 md:px-6 lg:py-4 lg:px-8 text-sm sm:text-base md:text-lg lg:text-xl">
+              <button className="w-full sm:w-auto bg-green-500 text-white hover:text-blue-500 font-bold py-3 px-6 rounded-lg sm:py-2 sm:px-4 md:py-3 md:px-6 lg:py-4 lg:px-8 text-sm sm:text-base md:text-lg lg:text-xl">
                 SHOP NOW
               </button>
             </div>

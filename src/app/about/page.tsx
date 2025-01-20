@@ -1,6 +1,6 @@
 import About from '../../components/about/About'
 import About2 from '../../components/about/About2'
-import Footer from '../../components/Footer'
+
 import Likes from '../../components/about/Likes'
 import Reacticon from '../../components/about/Reacticon'
 import Team from '../../components/about/Team'
@@ -16,7 +16,7 @@ const page = () => {
       <Team/>
       <Reacticon/>
       <About2/>
-      <Footer/>
+     
     </div>
   )
 }

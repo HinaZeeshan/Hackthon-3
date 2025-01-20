@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
-export type Product = {
+export interface Product  {
+    id: any;
     title: string; // The title of the product
     slug: string; // The slug (URL-friendly identifier) of the product
     description: string; // Description of the product
@@ -11,4 +12,15 @@ export type Product = {
     discountPercentage?: number; // Optional discount percentage for the product
     isNew?: boolean; // Optional flag indicating if the product is new
   }
+  // export interface Cart{
+  //   id: number;
+  //   title: string; 
+  //     slug: string;
+  //     description: string; 
+  //     imageUrl: string; 
+  //     price: number;
+  //     size:string;
+  //     quantity:string;
+  //     uuid: number | string | undefined;
+  // } 
   

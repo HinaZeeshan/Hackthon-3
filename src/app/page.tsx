@@ -1,4 +1,4 @@
-import Footer from "../components/Footer";
+
 import Bestselling from "../components/Home/Bestselling";
 import Editor from "../components/Home/Editor";
 import Hero from "../components/Home/Hero";
@@ -7,7 +7,17 @@ import Universe from "../components/Home/Universe";
 import Classic from "../components/Home/Classic";
 
 
+
+
 export default function Home() {
+
+ 
+
+  
+   
+  
+
+
   return (
      
     <div>
@@ -17,7 +27,7 @@ export default function Home() {
       <Classic />
       <Universe />
       <Post />
-       <Footer /> 
+     
        </div>
   );
 }

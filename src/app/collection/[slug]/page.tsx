@@ -15,6 +15,7 @@ export default async function CollectionPage({ params }: { params: Promise<Param
   // Fetch data from Sanity
   const products = await client.fetch(
     `*[_type == "product" && slug.current == $slug]{
+    _id,
       title,
       "slug": slug.current,
       description,

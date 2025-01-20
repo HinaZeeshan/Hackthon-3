@@ -6,12 +6,16 @@ import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
 
+
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: "700",
 });
 
 const Header = () => {
+
+
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -29,6 +33,7 @@ const Header = () => {
           <Link href="/" className="hover:text-gray-900">Home</Link>
           <Link href="/shop" className="hover:text-gray-900">Shop</Link>
           <Link href="/about" className="hover:text-gray-900">About</Link>
+          <Link href="/product" className="hover:text-gray-900">product</Link>
           <Link href="/pricing" className="hover:text-gray-900">Pricing</Link>
           <Link href="/team" className="hover:text-gray-900">team</Link>
           <Link href="/contact" className="hover:text-gray-900">Contact</Link>
@@ -40,7 +45,7 @@ const Header = () => {
           {/* Login/Register */} 
           <div className="flex items-center sm:gap-2 text-[#23A6F0]">
             <FaUserCircle size={18} className="text-[#23A6F0]" />
-            <Link href="/" className="text-sm sm:text-base">Login</Link>
+            <Link href="/login" className="text-sm sm:text-base">Login</Link>
             <span>/</span>
             <Link href="/register" className="text-sm sm:text-base">Register</Link>
           </div>
@@ -53,7 +58,10 @@ const Header = () => {
             </Link>
             <Link href="/cart">
               <AiOutlineShoppingCart className="text-[#23A6F0] cursor-pointer" size={24} />
+           
             </Link>
+           
+           
           </div>
 
           {/* Hamburger Menu */}
@@ -85,6 +93,7 @@ const Header = () => {
           <Link href="/" className="block hover:text-gray-900">Home</Link>
           <Link href="/shop" className="block hover:text-gray-900">Shop</Link>
           <Link href="/about" className="block hover:text-gray-900">About</Link>
+          <Link href="/product" className="hover:text-gray-900">product</Link>
           <Link href="/pricing" className="block hover:text-gray-900">Pricing</Link>
           <Link href="/team" className="hover:text-gray-900">team</Link>
           <Link href="/contact" className="block hover:text-gray-900">Contact</Link>

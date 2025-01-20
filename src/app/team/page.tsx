@@ -1,4 +1,4 @@
-import Footer from '../../components/Footer'
+
 import FreeTrail from '../../components/Team/Freetrail'
 import MeetOurTeam from '../../components/Team/Meetourteam'
 import Teamgallery from '../../components/Team/Teamgallery'
@@ -11,7 +11,7 @@ const page = () => {
       <Teamgallery/>
     <MeetOurTeam/>
     <FreeTrail/>
-      <Footer/>
+   
     </div>
   )
 }

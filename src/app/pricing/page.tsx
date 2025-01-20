@@ -1,5 +1,5 @@
 import Facts from '../../components/Pricing/Facts'
-import Footer from '../../components/Footer'
+
 
 import Reacticon from '../../components/about/Reacticon'
 import React from 'react'
@@ -11,7 +11,6 @@ const page = () => {
       <PricingSection/>
       <Reacticon/>
       <Facts/>
-      <Footer/>
     </div>
   )
 }
