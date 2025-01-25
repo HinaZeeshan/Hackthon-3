@@ -2,6 +2,7 @@ import { client } from '../../../sanity/lib/client';
 import ProductDetails from '../../../components/ProductDetails';
 import React from 'react';
 
+
 // Define Params interface
 interface Params {
   slug: string;
@@ -9,12 +10,13 @@ interface Params {
 
 // Async Page Component
 export default async function BestsellingPage({ params }: { params: Promise<Params> }) {
-  // Await and destructure `slug` from the `params` promise
+ 
   const { slug } = await params;
 
   // Fetch data from Sanity
   const products = await client.fetch(
     `*[_type == "product" && slug.current == $slug]{
+       _id,
       title,
       "slug": slug.current,
       description,
@@ -22,7 +24,8 @@ export default async function BestsellingPage({ params }: { params: Promise<Para
       price,
       tags,
       discountPercentage,
-      isNew
+      isNew,
+      inventory
     }`,
     { slug }
   );
@@ -31,7 +34,9 @@ export default async function BestsellingPage({ params }: { params: Promise<Para
   const product = products?.[0];
 
   // Pass product data to ProductDetails component
-  return <ProductDetails product={product} />;
+  return<ProductDetails product={product}/>
+ // <ProductDetails product={product} />;
+  
 }
 
 

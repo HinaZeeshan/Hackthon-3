@@ -6,10 +6,12 @@ import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { sanityFetch } from "../../sanity/lib/fetch";
 import { allproducts } from "../../sanity/lib/queries";
-import { useCart } from "../cart/Cartcard";
 import { CiHeart } from "react-icons/ci";
-import { FaEye } from "react-icons/fa";
-import { IoCartOutline } from "react-icons/io5";
+
+import Swal from "sweetalert2";
+import { AddToCard } from "@/app/operations/Addtocart";
+
+import { addToWishlist } from "@/app/operations/Wishlist";
 
 const montseerat = Montserrat({
   subsets: ["latin"],
@@ -30,9 +32,32 @@ const Bestselling = () => {
 
     fetchProducts();
   }, []);
-  const { addToCart } = useCart();
 
-  
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    Swal.fire({
+      position: "top-right",
+      icon: "success",
+      title: `${product.title} added to Cart`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+
+    AddToCard(product);
+  };
+
+  const handleAddToWish = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    Swal.fire({
+      position: "top-right",
+      icon: "success",
+      title: `${product.title} added to wishlist`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+
+    addToWishlist(product);
+  };
 
   return (
     <section className="text-gray-600 pt-[80px] pb-[80px] gap-6 body-font">
@@ -66,7 +91,7 @@ const Bestselling = () => {
                 width={500}
                 height={500}
                 alt={product.title}
-                className="object-fit object-center hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full block"
+                className="object-contain object-center hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full block"
                 src={product.imageUrl}
               />
             </Link>
@@ -81,7 +106,7 @@ const Bestselling = () => {
                 ${product.price.toFixed(2)}{" "}
                 {product.discountPercentage && (
                   <span className="text-red-500 text-sm">
-                    ({product.discountPercentage}% OFF)
+                    ({product.discountPercentage} % OFF)
                   </span>
                 )}
               </p>
@@ -99,30 +124,21 @@ const Bestselling = () => {
             </div>
 
             {/* Action Buttons */}
+
             <div className="flex flex-col sm:flex-row sm:flex-wrap space-y-4 sm:space-y-0 sm:space-x-4 pt-4 items-center justify-center">
-              <button className="w-full sm:w-12 h-12 border rounded-full flex items-center justify-center hover:bg-gray-200">
-                <CiHeart className="text-gray-600" />
-              </button>
-
               <button
-                onClick={() =>
-                  addToCart({
-                    id: product.id, // Adjust field names as per your Product type
-                    title: product.title,
-                    price: product.price,
-                    image: product.imageUrl,
-
-                    quantity: 1,
-                  })
-                }
-                className="w-full sm:w-12 h-12 border rounded-full flex items-center justify-center hover:bg-gray-200"
+                onClick={(e) => handleAddToCart(e, product)}
+                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
               >
-                <IoCartOutline className="text-gray-600" />
+                add to cart
               </button>
-
-              <button className="w-full sm:w-12 h-12 border rounded-full flex items-center justify-center hover:bg-gray-200">
-                <FaEye className="text-gray-600" />
-              </button>
+              <Link
+                href="/wishlist"
+                className="w-full sm:w-12 h-12 border rounded-full flex items-center justify-center hover:bg-gray-200"
+                onClick={(e) => handleAddToWish(e, product)}
+              >
+                <CiHeart className="text-red-600 text-2xl" />
+              </Link>
             </div>
           </div>
         ))}
@@ -132,5 +148,3 @@ const Bestselling = () => {
 };
 
 export default Bestselling;
-
-

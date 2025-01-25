@@ -1,5 +1,5 @@
-import Bestproduct from '@/components/product/Bestproduct'
-import Oneproduct from '@/components/product/Oneproduct'
+import Bestproduct from '../../components/product/Bestproduct'
+import Oneproduct from '../../components/product/Oneproduct'
 import React from 'react'
 
 const productpage = () => {

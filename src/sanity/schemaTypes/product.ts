@@ -31,6 +31,13 @@ export const product = defineType({
             title:"Description",
         },
         {
+            name: 'inventory',
+            title: 'Inventory',
+            type: 'number',
+            validation: (Rule) => Rule.min(0), // Prevent negative values
+            initialValue: 0, // Default value set to 0
+          },
+        {
             name: "productImage",
             type: "image",
             validation: (rule) => rule.required(),

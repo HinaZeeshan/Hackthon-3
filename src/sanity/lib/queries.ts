@@ -2,7 +2,7 @@ import { defineQuery } from "next-sanity";
 
 export const allproducts = defineQuery(`
    *[_type == "product"]{
-   _id,
+       _id,
         title,
          "slug":slug.current,
         description,
@@ -10,7 +10,8 @@ export const allproducts = defineQuery(`
         price,
         tags,
         discountPercentage,
-        isNew
+        isNew,
+        inventory
    } 
 `);
 
@@ -24,7 +25,8 @@ export const mainproduct = defineQuery(`
          price,
          tags,
          discountPercentage,
-         isNew
+         isNew,
+         inventory
     } 
  `);
 
@@ -38,6 +40,6 @@ export const collectionproduct = defineQuery(`
           price,
           tags,
           discountPercentage,
-          isNew
+          isNew,inventory
      } 
   `);

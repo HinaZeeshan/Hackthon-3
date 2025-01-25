@@ -23,7 +23,8 @@ export default async function CollectionPage({ params }: { params: Promise<Param
       price,
       tags,
       discountPercentage,
-      isNew
+      isNew,
+      inventory
     }`,
     { slug }
   );

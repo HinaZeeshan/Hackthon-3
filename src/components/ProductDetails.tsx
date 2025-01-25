@@ -1,15 +1,19 @@
 
-'use client'; // Enables client-side rendering
+'use client'
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { useCart } from './cart/Cartcard';
+import { AddToCard } from '@/app/operations/Addtocart';
+import Swal from 'sweetalert2';
+import { addToWishlist } from '@/app/operations/Wishlist';
+import Link from 'next/link';
+import { CiHeart } from 'react-icons/ci';
 
 
 // Define Product interface
 interface Product {
-  id: string;
+  _id: string;
   title: string;
   slug: string;
   description: string;
@@ -18,6 +22,7 @@ interface Product {
   tags?: string[];
   discountPercentage?: number;
   isNew?: boolean;
+  invevtory?:number,
 }
 
 // Props interface
@@ -28,11 +33,35 @@ interface ProductDetailsProps {
 // ProductDetails Component
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const router = useRouter();
- const { addToCart } = useCart();
+const handleAddToCart = ( e:React.MouseEvent, product : Product) => {
+  e.preventDefault()
+Swal.fire({
+  position:"top-right",
+  icon : "success",
+  title : `${product.title} added to Cart`,
+   showConfirmButton: false ,
+    timer :1000 ,
 
+ }) 
+
+   AddToCard(product)
+ }
+  const handleAddToWish = (e: React.MouseEvent, product: Product) => {
+      e.preventDefault();
+      Swal.fire({
+        position: "top-right",
+        icon: "success",
+        title: `${product.title} added to wishlist`,
+        showConfirmButton: false,
+        timer: 1000,
+      });
   
+      addToWishlist(product);
+    };
 
-  // Handle case where no product is found
+
+
+
   if (!product) {
     return (
       <div>
@@ -41,7 +70,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         </h1>
         <button
           onClick={() => router.push('/')}
-          className="flex mt-5 mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+          className="flex mt-5 mx-auto text-white bg-indigo-400  py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
         >
           Back to Home
         </button>
@@ -130,19 +159,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
             {/* Add to Cart Button */}
             <button 
-            onClick={() =>
-              addToCart({
-                id: product.id, // Adjust field names as per your Product type
-                title: product.title,
-                price: product.price,
-                image: product.imageUrl,
-
-                quantity: 1,
-              })
-            }
-            className="flex w-full justify-center text-white bg-indigo-500 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+         onClick={(e)=> handleAddToCart (e,product)}
+           
+            className="flex w-full justify-center text-white border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded bg-gradient-to-tr from-indigo-500 to-slate-500">
               Add to Cart
             </button>
+            <Link
+            href="/wishlist"
+            className="w-full sm:w-12 h-12 border rounded-full flex items-center justify-center hover:bg-gray-200"
+            onClick={(e) => handleAddToWish(e, product)} 
+          >
+            <CiHeart className="text-red-600 text-2xl" />
+          </Link>
           </div>
         </div>
       </div>
