@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 
 export interface Product  {
@@ -13,15 +13,4 @@ export interface Product  {
     isNew?: boolean;
     inventory?:number;
   }
-  // export interface Cart{
-  //   id: number;
-  //   title: string; 
-  //     slug: string;
-  //     description: string; 
-  //     imageUrl: string; 
-  //     price: number;
-  //     size:string;
-  //     quantity:string;
-  //     uuid: number | string | undefined;
-  // } 
   
