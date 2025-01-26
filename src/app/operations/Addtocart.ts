@@ -6,7 +6,9 @@ export const AddToCard = (product: Product) => {
   const cart: Product[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
   // Find the product in the cart
-  const existingProductIndex = cart.findIndex((item) => item._id === product._id);
+  const existingProductIndex = cart.findIndex(
+    (item) => item._id === product._id
+  );
 
   if (existingProductIndex > -1) {
     // If product exists, update its inventory
@@ -52,8 +54,3 @@ export const Updatecart = (productId: string, quantity: number) => {
 export const getCardItems = (): Product[] => {
   return JSON.parse(localStorage.getItem("cart") || "[]");
 };
-
-
-
-
-

@@ -1,11 +1,14 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
-import { AiOutlineSearch, AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineHeart,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { Montserrat } from "next/font/google";
-
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,9 +16,6 @@ const montserrat = Montserrat({
 });
 
 const Header = () => {
-
-
-
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -30,38 +30,61 @@ const Header = () => {
 
         {/* Navigation for Desktop */}
         <nav className="hidden md:flex space-x-6">
-          <Link href="/" className="hover:text-gray-900">Home</Link>
-          <Link href="/shop" className="hover:text-gray-900">Shop</Link>
-          <Link href="/about" className="hover:text-gray-900">About</Link>
-          <Link href="/product" className="hover:text-gray-900">product</Link>
-          <Link href="/pricing" className="hover:text-gray-900">Pricing</Link>
-          <Link href="/team" className="hover:text-gray-900">team</Link>
-          <Link href="/contact" className="hover:text-gray-900">Contact</Link>
-          
+          <Link href="/" className="hover:text-gray-900">
+            Home
+          </Link>
+          <Link href="/shop" className="hover:text-gray-900">
+            Shop
+          </Link>
+          <Link href="/about" className="hover:text-gray-900">
+            About
+          </Link>
+          <Link href="/product" className="hover:text-gray-900">
+            product
+          </Link>
+          <Link href="/pricing" className="hover:text-gray-900">
+            Pricing
+          </Link>
+          <Link href="/team" className="hover:text-gray-900">
+            team
+          </Link>
+          <Link href="/contact" className="hover:text-gray-900">
+            Contact
+          </Link>
         </nav>
 
         {/* Right Section */}
         <div className="flex items-center mr-32 space-x-0 sm:space-x-4">
-          {/* Login/Register */} 
+          {/* Login/Register */}
           <div className="flex items-center sm:gap-2 text-[#23A6F0]">
             <FaUserCircle size={18} className="text-[#23A6F0]" />
-            <Link href="/login" className="text-sm sm:text-base">Login</Link>
+            <Link href="/login" className="text-sm sm:text-base">
+              Login
+            </Link>
             <span>/</span>
-            <Link href="/register" className="text-sm sm:text-base">Register</Link>
+            <Link href="/register" className="text-sm sm:text-base">
+              Register
+            </Link>
           </div>
 
           {/* Icons */}
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <AiOutlineSearch size={20} className="hidden md:block text-[#23A6F0] cursor-pointer" />
+            <AiOutlineSearch
+              size={20}
+              className="hidden md:block text-[#23A6F0] cursor-pointer"
+            />
             <Link href="/wishlist">
-              <AiOutlineHeart className="text-[#23A6F0] cursor-pointer" size={24} />
+              <AiOutlineHeart
+                className="text-[#23A6F0] cursor-pointer"
+                size={24}
+              />
             </Link>
             <Link href="/cart">
-              <AiOutlineShoppingCart className="text-[#23A6F0] cursor-pointer" size={24} />
-           
+              <AiOutlineShoppingCart
+                className="text-[#23A6F0] cursor-pointer"
+                size={24}
+              />
             </Link>
-           
-           
           </div>
 
           {/* Hamburger Menu */}
@@ -90,14 +113,28 @@ const Header = () => {
       {/* Mobile Navigation */}
       {menuOpen && (
         <nav className="lg:hidden bg-gray-100 border-t border-gray-200 p-2 space-y-4">
-          <Link href="/" className="block hover:text-gray-900">Home</Link>
-          <Link href="/shop" className="block hover:text-gray-900">Shop</Link>
-          <Link href="/about" className="block hover:text-gray-900">About</Link>
-          <Link href="/product" className="hover:text-gray-900">product</Link>
-          <Link href="/pricing" className="block hover:text-gray-900">Pricing</Link>
-          <Link href="/team" className="hover:text-gray-900">team</Link>
-          <Link href="/contact" className="block hover:text-gray-900">Contact</Link>
-          
+          <Link href="/" className="block hover:text-gray-900">
+            Home
+          </Link>
+          <Link href="/shop" className="block hover:text-gray-900">
+            Shop
+          </Link>
+          <Link href="/about" className="block hover:text-gray-900">
+            About
+          </Link>
+          <Link href="/product" className="hover:text-gray-900">
+            product
+          </Link>
+          <Link href="/pricing" className="block hover:text-gray-900">
+            Pricing
+          </Link>
+          <Link href="/team" className="hover:text-gray-900">
+            team
+          </Link>
+          <Link href="/contact" className="block hover:text-gray-900">
+            Contact
+          </Link>
+
           <button
             className="w-full text-gray-600 text-center border border-gray-300 rounded-md py-2"
             onClick={() => setMenuOpen(false)}
@@ -111,21 +148,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
