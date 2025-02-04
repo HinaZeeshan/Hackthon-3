@@ -6,11 +6,9 @@ import { Montserrat } from "next/font/google";
 import Link from "next/link";
 import { sanityFetch } from "../../sanity/lib/fetch";
 import { allproducts } from "../../sanity/lib/queries";
-import { CiHeart } from "react-icons/ci";
-
+import Pagination from "../../components/Pagination";
 import Swal from "sweetalert2";
 import { AddToCard } from "@/app/operations/Addtocart";
-
 import { addToWishlist } from "@/app/operations/Wishlist";
 
 const montseerat = Montserrat({
@@ -20,23 +18,51 @@ const montseerat = Montserrat({
 
 const Bestselling = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
-  // Fetch products and set them in state
   useEffect(() => {
     const fetchProducts = async () => {
       const fetchedProducts: Product[] = await sanityFetch({
         querry: allproducts,
       });
       setProducts(fetchedProducts);
+      setFilteredProducts(fetchedProducts);
     };
-
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    let updatedProducts = products;
+    if (searchQuery) {
+      updatedProducts = updatedProducts.filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    if (categoryFilter) {
+      updatedProducts = updatedProducts.filter((product) =>
+        product.tags?.includes(categoryFilter)
+      );
+    }
+    setFilteredProducts(updatedProducts);
+    setCurrentPage(1);
+  }, [searchQuery, categoryFilter, products]);
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+  const currentProducts = filteredProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   const handleAddToCart = (e: React.MouseEvent, product: Product) => {
     e.preventDefault();
     Swal.fire({
-      position: "top-right",
+      position: window.innerWidth < 640 ? "center" : "top-right",
       icon: "success",
       title: `${product.title} added to Cart`,
       showConfirmButton: false,
@@ -49,7 +75,7 @@ const Bestselling = () => {
   const handleAddToWish = (e: React.MouseEvent, product: Product) => {
     e.preventDefault();
     Swal.fire({
-      position: "top-right",
+      position: window.innerWidth < 640 ? "center" : "top-right",
       icon: "success",
       title: `${product.title} added to wishlist`,
       showConfirmButton: false,
@@ -72,77 +98,82 @@ const Bestselling = () => {
         >
           BESTSELLER PRODUCTS
         </h3>
-        <p className={`${montseerat.className} text-sm text-[#252B42]`}>
-          Problems trying to resolve the conflict between{" "}
-        </p>
       </div>
-
-      <div className="flex flex-wrap justify-center">
-        {products.map((product) => (
+      <div className="flex flex-wrap justify-center gap-4 my-6">
+        <input
+          type="text"
+          placeholder="Search by product name..."
+          className="px-4 py-2 w-full max-w-sm border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <select
+          className="px-4 py-2 w-full max-w-sm border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+        >
+          <option value="">All Categories</option>
+          {[...new Set(products.flatMap((product) => product.tags || []))].map(
+            (tag) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            )
+          )}
+        </select>
+      </div>
+      <div className="flex flex-wrap justify-center ">
+        {currentProducts.map((product) => (
           <div
             key={product.title}
-            className="lg:w-1/4 md:w-1/2 p-4 w-full max-w-xs  "
+            className="lg:w-1/4 md:w-1/2 p-4 w-full max-w-xs "
           >
-            <Link
-              href={`bestselling/${product.slug}`}
-              className="block relative h-[350px] w-full rounded overflow-hidden"
-            >
-              <Image
-                width={500}
-                height={500}
-                alt={product.title}
-                className="object-contain object-center hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full block"
-                src={product.imageUrl}
-              />
-            </Link>
-            <div className="mt-4 flex flex-col justify-center items-center">
-              <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                {product.tags?.[0] || "CATEGORY"}
-              </h3>
-              <h2 className="text-gray-900 title-font text-lg font-medium text-center">
-                {product.title}
-              </h2>
-              <p className="mt-1 text-center">
-                ${product.price.toFixed(2)}{" "}
-                {product.discountPercentage && (
-                  <span className="text-red-500 text-sm">
-                    ({product.discountPercentage} % OFF)
-                  </span>
-                )}
-              </p>
-              {product.isNew && (
-                <p className="text-green-600 text-xs font-semibold mt-1">
-                  New Product!
-                </p>
-              )}
-            </div>
-            <div className="flex justify-center gap-1 mt-2">
-              <span className="flex w-3 h-3 bg-blue-600 rounded-full"></span>
-              <span className="flex w-3 h-3 bg-purple-500 rounded-full"></span>
-              <span className="flex w-3 h-3 bg-indigo-500 rounded-full"></span>
-              <span className="flex w-3 h-3 bg-teal-500 rounded-full"></span>
-            </div>
-
-            {/* Action Buttons */}
-
-            <div className="flex flex-col sm:flex-row sm:flex-wrap space-y-4 sm:space-y-0 sm:space-x-4 pt-4 items-center justify-center">
-              <button
-                onClick={(e) => handleAddToCart(e, product)}
-                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-              >
-                add to cart
-              </button>
+            <div className="border bg-slate-100 rounded-lg shadow-xl  ">
               <Link
-                href="/wishlist"
-                className="w-full sm:w-12 h-12 border rounded-full flex items-center justify-center hover:bg-gray-200"
-                onClick={(e) => handleAddToWish(e, product)}
+                href={`bestselling/${product.slug}`}
+                className="block relative h-[350px] w-full rounded overflow-hidden"
               >
-                <CiHeart className="text-red-600 text-2xl" />
+                <Image
+                  width={500}
+                  height={500}
+                  alt={product.title}
+                  className="object-contain object-center hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full block"
+                  src={product.imageUrl}
+                />
               </Link>
+              <div className="mt-4 text-center">
+                <h2 className="text-gray-900 title-font text-lg font-medium">
+                  {product.title}
+                </h2>
+                <p className="mt-1">${product.price.toFixed(2)}</p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex sm:flex-row sm:flex-wrap space-y-4 sm:space-y-0 sm:space-x-4 pt-4 items-center justify-center">
+                <button
+                  onClick={(e) => handleAddToCart(e, product)}
+                  className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+                >
+                  add to cart
+                </button>
+              </div>
+              <div className="flex sm:flex-row sm:flex-wrap space-y-4 sm:space-y-0 sm:space-x-4 pt-4 items-center justify-center mb-5">
+                <button
+                  onClick={(e) => handleAddToWish(e, product)}
+                  className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+                >
+                  add to WishList
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </section>
   );
 };
